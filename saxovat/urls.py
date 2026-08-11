@@ -1,14 +1,17 @@
-from django.contrib import admin
-from django.urls import path
-from main import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import path
+
+from main import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('home/', views.home, name='home-page'),
     path('index/', views.home, name='index-page'),
+    path('robots.txt', views.robots_txt, name='robots-txt'),
+    path('sitemap.xml', views.sitemap_xml, name='sitemap-xml'),
 ]
 
 if settings.DEBUG:

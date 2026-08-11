@@ -1,13 +1,41 @@
 import os
+from pathlib import Path
+
 import dj_database_url
-from pathlib import Path 
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-change-me'
-DEBUG = True
-ALLOWED_HOSTS = []
+load_dotenv(BASE_DIR / '.env')
+
+
+def env_bool(name, default=False):
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in ('1', 'true', 'yes', 'on')
+
+
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-change-me-in-production')
+DEBUG = env_bool('DEBUG', False)
+
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.getenv(
+        'ALLOWED_HOSTS',
+        'e-friction.uz,www.e-friction.uz,localhost,127.0.0.1',
+    ).split(',')
+    if host.strip()
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://e-friction.uz',
+    'http://www.e-friction.uz',
+    'https://e-friction.uz',
+    'https://www.e-friction.uz',
+]
+
+SITE_URL = os.getenv('SITE_URL', 'https://e-friction.uz').rstrip('/')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -21,6 +49,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -48,6 +77,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'saxovat.wsgi.application'
+ASGI_APPLICATION = 'saxovat.asgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
@@ -75,7 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'uz'
 TIME_ZONE = 'Asia/Tashkent'
 USE_I18N = True
-USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
@@ -86,7 +115,27 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+STORAGES = {
+    'default': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    },
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+    },
+}
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = env_bool('SECURE_SSL_REDIRECT', True)
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'DENY'
