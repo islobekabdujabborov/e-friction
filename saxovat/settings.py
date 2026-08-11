@@ -23,16 +23,15 @@ ALLOWED_HOSTS = [
     host.strip()
     for host in os.getenv(
         'ALLOWED_HOSTS',
-        'e-friction.uz,www.e-friction.uz,localhost,127.0.0.1',
+        'e-friction.uz,www.e-friction.uz,e-friction-production.up.railway.app,localhost,127.0.0.1'
     ).split(',')
     if host.strip()
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://e-friction.uz',
-    'http://www.e-friction.uz',
     'https://e-friction.uz',
     'https://www.e-friction.uz',
+    'https://e-friction-production.up.railway.app',
 ]
 
 SITE_URL = os.getenv('SITE_URL', 'https://e-friction.uz').rstrip('/')
