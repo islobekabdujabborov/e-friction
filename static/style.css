@@ -125,7 +125,7 @@ textarea {
   background: transparent;
   color: var(--secondary);
   font-size: 1.2rem;
-  display: grid;
+  display: none;
   place-items: center;
 }
 
@@ -159,21 +159,27 @@ textarea {
 }
 
 .hero {
-  min-height: 92vh;
+  min-height: 100vh;
   position: relative;
   display: grid;
   align-items: center;
-  padding: 4.5rem 0;
-  background: radial-gradient(circle at top, rgba(198, 40, 40, 0.18), transparent 40%),
-    url("img/LBU-1200.png") center/cover no-repeat;
-  background-color: #1a1a1a;
+  padding: 2rem 0;
+  background-color: #fff;
+  overflow: hidden;
 }
 
-.hero-overlay {
+.hero-bg {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.35);
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  z-index: -2;
+  pointer-events: none;
 }
+
+
 
 .hero-content {
   position: relative;
@@ -184,6 +190,126 @@ textarea {
 .hero-copy {
   max-width: 620px;
   color: #fff;
+}
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  overflow: hidden;
+
+  display: block;
+}
+
+.hero-bg {
+  position: relative;
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  object-fit: contain;
+  object-position: center;
+
+  margin: 0;
+  padding: 0;
+
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: absolute;
+  inset: 0;
+
+  display: grid;
+  align-items: center;
+
+  gap: 2rem;
+  z-index: 1;
+}
+
+.hero-copy {
+  max-width: 620px;
+  color: #fff;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1024px) {
+  .hero {
+    min-height: auto;
+    height: auto;
+    padding: 0;
+  }
+
+  .hero-bg {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 0;
+    height: auto;
+    padding: 0;
+    margin: 0;
+  }
+
+  .hero-bg {
+    position: relative;
+    inset: auto;
+
+    width: 100%;
+    height: auto;
+
+    display: block;
+
+    object-fit: contain;
+    object-position: center;
+
+    margin: 0;
+    padding: 0;
+  }
+
+  .hero-content {
+    position: absolute;
+    inset: 0;
+
+    display: grid;
+    align-items: center;
+  }
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 480px) {
+  .hero {
+    min-height: 0;
+    height: auto;
+    padding: 0;
+  }
+
+  .hero-bg {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .eyebrow {
@@ -266,11 +392,11 @@ textarea {
 }
 
 .section {
-  padding: 5rem 0;
+  padding: 4rem 0;
 }
 
 .section-header {
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .section-header.center {
@@ -1002,19 +1128,72 @@ textarea:focus {
 
 
 @media (max-width: 960px) {
+  .nav-toggle {
+    display: grid;
+    z-index: 250;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    place-items: center;
+    background: rgba(26, 26, 26, 0.88);
+    color: #fff;
+    transition: background var(--transition), color var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  .navbar.scrolled .nav-toggle {
+    background: rgba(26, 26, 26, 0.88);
+    color: #fff;
+  }
+
+  .nav-toggle {
+    display: grid;
+    place-items: center;
+  }
+
+  .nav-toggle-icon,
+  .nav-toggle-icon::before,
+  .nav-toggle-icon::after {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 4px;
+    border-radius: 999px;
+    background: #fff;
+    transition: transform var(--transition), opacity var(--transition);
+  }
+
+  .nav-toggle-icon::before,
+  .nav-toggle-icon::after {
+    position: relative;
+  }
+
+  .nav-toggle-icon::before {
+    top: -8px;
+  }
+
+  .nav-toggle-icon::after {
+    top: 4px;
+  }
+
   .nav-menu {
     position: fixed;
     inset: 0;
-    top: 80px;
-    left: 100%;
+    transform: translateX(100%);
+    width: 100%;
     flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
     background: rgba(255,255,255,0.98);
     padding: 3rem 2rem;
-    transition: left var(--transition);
+    gap: 0.75rem;
+    overflow-y: auto;
+    transition: transform var(--transition);
+    z-index: 200;
   }
 
   .nav-menu.open {
-    left: 0;
+    transform: translateX(0);
   }
 
   .nav-link {

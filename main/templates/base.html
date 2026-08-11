@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="E-Friction - premium to'xtatish yostiqchalari ishlab chiqaruvchi, ishonchli ishqalanish yechimlarini dunyo bo'ylab yetkazib beradi." />
+  <meta name="keywords" content="to'xtatish yostiqchalari, ishqalanish yechimlari, avtomobil komponentlari, ishlab chiqarish, sifat nazorati, OEM" />
+  <title>{% block title %}E-Friction | Har qanday yo'l uchun ishonchli ishqalanish yechimlari{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-HZ+BnYb4c2LB1n+QqRIJbF4Q2vLbpz3fF0EJd8JPNbZBM9uXIBL9N4rkmCN+sVx+VY3g9S7y2i6+6z8vlZw5dA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <header class="header" id="header">
+    <nav class="navbar container" id="navbar">
+      <a href="#home" class="logo">E<span>-Friction</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menyuni ochish">
+        <span class="nav-toggle-icon" aria-hidden="true"></span>
+      </button>
+      <div class="nav-menu" id="navMenu">
+        <a href="#home" class="nav-link active">Bosh sahifa</a>
+        <a href="#about" class="nav-link">Biz haqimizda</a>
+        <a href="#products" class="nav-link">Mahsulotlar</a>
+        <a href="#process" class="nav-link">Ishlab chiqarish</a>
+        <a href="#quality" class="nav-link">Sifat</a>
+        <a href="#certificates" class="nav-link">Sertifikatlar</a>
+        <a href="#contact" class="nav-link">Aloqa</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-about">
+        <a href="#home" class="logo logo-footer">E<span>-Friction</span></a>
+        <p>Global to'xtatish yostiqchalari ishlab chiqarish, premium sifat, sertifikatlangan texnologiya va ishonchli ishlash.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Tezkor havolalar</h4>
+        <a href="#about">Biz haqimizda</a>
+        <a href="#products">Mahsulotlar</a>
+        <a href="#quality">Sifat</a>
+        <a href="#contact">Aloqa</a>
+      </div>
+      <div class="footer-links">
+        <h4>Mahsulotlar</h4>
+        <a href="#products">LBU1200</a>
+        <a href="#products">UPA 60/80</a>
+        <a href="#products">AK-60</a>
+        <a href="#products">A-50M</a>
+      </div>
+      <div class="footer-contact">
+        <h4>Aloqa</h4>
+        <p><i class="fas fa-map-marker-alt"></i> O'zbekiston Respublikasi,
+Andijon viloyati, Andijon shahri,
+kocha Nayman-30..</p>
+        <p><i class="fas fa-phone"></i>+998 90 381 02 00</p>
+        <p><i class="fas fa-envelope"></i>islobekabdujabborov@gmail.com</p>
+        <div class="social-icons">
+          <a href="#`" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 E-Friction. Barcha huquqlar himoyalangan.</p>
+    </div>
+  </footer>
+
+  <div class="search-popup" id="searchPopup">
+    <div class="search-content">
+      <button class="close-popup" id="closeSearch" aria-label="Qidiruvni yopish"><i class="fas fa-times"></i></button>
+      <h3>E-Frictionni qidiring</h3>
+      <form action="#">
+        <input type="search" placeholder="Mahsulot yoki xizmat nomini yozing..." aria-label="Search" />
+        <button type="submit" class="btn btn-primary">Qidirish</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <button class="close-popup" id="lightboxClose" aria-label="Close image"><i class="fas fa-times"></i></button>
+      <img src="" alt="Expanded gallery image" id="lightboxImage" />
+      <p id="lightboxCaption"></p>
+    </div>
+  </div>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+  <button class="float-btn whatsapp-btn" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></button>
+  <button class="float-btn call-btn" aria-label="Call us"><i class="fas fa-phone"></i></button>
+
+  <script src="{% static 'script.js' %}"></script>
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>
